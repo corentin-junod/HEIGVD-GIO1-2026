@@ -67,3 +67,10 @@ table img{
 .small{
     font-size:0.7rem;
 }
+
+.warning{
+    background-color: #b14a24;
+    padding: 10px;
+    border-radius: 15px;
+    border: 2px solid #f2af96;
+}

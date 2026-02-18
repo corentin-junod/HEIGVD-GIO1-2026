@@ -52,6 +52,8 @@
 	<img src="assets/git02.svg">
 	<p>
 		Pour contribuer à un projet existant, on récupère le code sur un <i>dépôt</i> distant (<i>repository</i> en anglais). On dit que l'on <i>clone</i> un dépôt disant vers un dépôt local.
+		<br>
+		Cette étape ne se fait qu'une seule fois.
 		<br><br>
 		Depuis ce dépôt local, on fera des modifications sur le code, avec les commits associés.
 	</p>
@@ -65,8 +67,9 @@
 	<p>
 		Pour synchroniser nos changement avec le dépôt distant, on fera un <i>push</i>. Git va alors mettre à jour le dépôt distant avec nos nouvelles modifications.
 		<br><br>
-		Si de nouvelles modifications ont été faites dans le dépôt distant par une autre personne, on pourra les prendre à l'aide de la commande <i>pull</i>.
+		Si de nouvelles modifications ont été ajoutées par d'autres personnes dans le dépôt distant, on pourra les récupérer à l'aide de la commande <i>pull</i>.
 	</p>
+	<p class="warning fragment fade-in">Attention : Vous ne pouvez <code>push</code> que si vous avez la dernière version du code, sinon il vous faudra <code>pull</code> et résoudre les éventuels conflits</p>
 </section>
 
 <section>
@@ -74,12 +77,17 @@
 	<h4>Workflow</h4>
 	<p>Les commandes principales</p>
 	<ul>
-		<li><code>git clone</code> récupère le code depuis une source distante</li>
+		<li><code>git clone</code> récupère le code depuis un dépôt distant</li>
 		<li><code>git add &lt;file&gt;</code> ajoute un fichier au prochain commit</li>
 		<li><code>git commit -m "&lt;message&gt;"</code> créé un commit avec son message associé</li>
 		<li><code>git push</code> envoie vos nouveaux commits dans le dépôt disant</li>
 		<li><code>git pull</code> récupère les nouveaux commits depuis le dépôt disant</li>
 	</ul>
+	<p>La commande <code>git commit -am "&lt;message&gt;"</code> permet de créer un commit avec tous les fichiers modifiés</p>
+	<p>La commande <code>git status</code> affiche l'état actuel de votre projet (fichiers modifiés, ajoutés au prochain commit, etc)</p>
+	<aside class="notes">
+    	Il y a beaucoup d'autres commandes, nous ne voyons ici que les commandes les plus basiques.
+	</aside>
 </section>
 
 <section>
@@ -88,9 +96,11 @@
 	<p>
 		GitHub est une plateforme en ligne qui permet d'héberger du code. Elle fournit un stockage pour des dépôts git.
 		<br><br>
-		Il existe d'autres alternatives, par exemple GitLab (hébergement de code en ligne), ou GitTea (hébergement à faire sois-même, <i>self-hosted</i>)
+		Il existe d'autres alternatives, par exemple GitLab (hébergement de code en ligne), ou GitTea (hébergement à faire sois-même, <i>self-hosted</i>).
 	</p>
 	<img src="assets/git04.svg">
+	<br>
+	<p>Les dépôts en ligne fournissent également plein de services complémentaires.</p>
 	<br>
 	<aside class="notes">
 		Aujourd'hui les fournisseurs de stockage proposent de nombreuses options en plus du simple stockage. GitHub permet d'executer des actions sur le code (déploiements, compilations, etc), de faire des analyses de sécurité, de tenir une liste des tâches, et bien d'autres fonctions.
@@ -107,6 +117,8 @@
 	<p>Si aucun fichier n'est ajouté au commit, VS Code proposera d'ajouter tous les fichiers modifiés</p>
 	<aside class="notes">
 		L'interface de VS Code pour gérer git est très pratique, n'hésitez pas à l'utiliser. Toutefois, il faut connaître les commandes git pour comprendre ce que l'ont fait et régler des situations que VS Code ne permet parfois pas de résoudre.
+		<br>
+		D'autres éditeurs de code fournissent des fonctions similaires.
 	</aside>
 </section>
 

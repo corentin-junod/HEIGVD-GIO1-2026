@@ -99,7 +99,7 @@
         </code></pre>
     </p>
     <div class="fragment fade-in">
-         <p>En pratique, les tableaux possèdent une fonction <code>map</code> qui fait exactement l'effet de <code>apply</code> </p>
+         <p>En pratique, les tableaux possèdent une méthode <code>map</code> qui fait exactement l'effet de <code>apply</code> </p>
         <pre><code data-trim data-noescape class="language-javascript">
             console.log( [1,2,3,4].map(x => 2*x) ) // 2,4,6,8
             console.log( [1,2,3,4].map(x => x*x) ) // 1,4,9,16
@@ -140,8 +140,10 @@
         const myObject = {
             nombre: 8
         };
+        
         console.log(myObject.nombre);       // 8
         console.log(myObject['nombre']);    // 8
+
         myObject.nombre = 9;                // Assigne 9
         myObject['nombre'] = 9;             // Identique à la ligne précédente
     </code></pre>
@@ -158,8 +160,8 @@
             elem1: 8,
             elem2: "A"
         };
-        for(const elem in myObject){
-            console.log(elem + " : " + myObject[elem]);
+        for(const k in myObject){
+            console.log(k + " : " + myObject[k]);
         }
         // Affichera : 
         // elem1 : 8
@@ -250,4 +252,25 @@
         p.display()                     // (10;20)
     </code></pre>
     <p>Les syntaxes de cette slides et la précédente sont équivalentes</p>
+     <aside class="notes">
+        On dira "classe" pour parler du type, mais pas d'un objet précis. Ainsi la "classe" Point possède les attributs x, y et la méthode display.
+        On dira "objet" pour parler d'une instance de la classe. Ainsi la constance p est un objet de type Point, c'est-à-dire qui est une instance de la classe Point.
+        Par convention, on commencera le nom des classes par une majuscule (Point) et on commencera le nom des objets par une minuscule (p).
+    </aside>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Les objets</h4>
+	<br>
+	<p>Site officiel (très formel et complet): <br>
+        Pour les objets : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_objects">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_objects</a>
+        <br>
+        Pour les classes : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes</a>
+    </p>
+	<p>W3Schools: <br>
+        Pour les objets : <a href="https://www.w3schools.com/js/js_object_advanced.asp">https://www.w3schools.com/js/js_object_advanced.asp</a>
+        <br>
+        Pour les classes : <a href="https://www.w3schools.com/js/js_classes.asp">https://www.w3schools.com/js/js_classes.asp</a>
+    </p>
 </section>

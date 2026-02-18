@@ -33,7 +33,7 @@
 	<h3>JavaScript</h3>
 	<h4>Les modules</h4>
     <p>
-        Il serait possible d'importer tous les fichiers dans le HTML principal, à l'aide de balises <code>script</code>, mais cela a plusieurs inconvénients, en particulier
+        Il serait possible d'importer tous les fichiers dans le HTML principal, à l'aide de balises <code>&lt;script&gt;</code>, mais cela a plusieurs inconvénients, en particulier
         <ol>
             <li>Tout est importé globalement, généralement des conflits de nom. Ainsi, dans l'exemple précédent, il ne peut y avoir un autre objet ou variable se nommant <code>Circle</code>.</li>
             <li>Si une librairies est composée de plusieurs fichiers, ils doivent tous être importés un par un. Cela devient encombrant avec des centaines de fichiers.</li>
@@ -42,6 +42,9 @@
         <br><br>
         Il existe une solution à tout ces problèmes : <b>Les modules</b>
     </p>
+    <aside class="notes">
+        Les modules fournissent aussi, comme on va le voir plus loin, une notion d'encapsulation.
+    </aside>
 </section>
 
 <section>
@@ -64,8 +67,8 @@
                 }
             }
 
-            export const UNIT_CIRCLE = new Circle(0, 0, 1); // Constante exportée
-            const UNIT_AREA = 2*Math.PI;                    // Constante non exportée
+            export const UNIT_CIRCLE_AREA = new Circle(0, 0, 1).area(); // Constante exportée
+            const UNIT_CIRCLE_PERIMETER = 2*Math.PI;                    // Constante non exportée
         </code></pre>
 </section>
 
@@ -75,18 +78,19 @@
     <p>Pour importer un élément d'un module, on utilisera le mot-clé <code>import</code></p>
         <pre><code data-trim data-noescape class="language-javascript">
             // Fichier main.js
-            import { Circle, UNIT_CIRCLE } from "./Circle.js"
+            import { Circle, UNIT_CIRCLE_AREA } from "./Circle.js"
 
             const myCircle = new Circle(2, 3, 1.5);
 
-            if(circle.area() > UNIT_CIRCLE) {
+            if(myCircle.area() > UNIT_CIRCLE_AREA) {
                 console.log("myCircle plus grand que le cercle unité");
             }
 
-            import { UNIT_AREA } from "./Circle.js" // Erreur ! Car UNIT_AREA n'est pas exporté
+            import { UNIT_CIRCLE_PERIMETER } from "./Circle.js" // Erreur ! Car non exporté
             
         </code></pre>
     <p>Les imports seront indiqués entre <code>{</code> et <code>}</code>, même si un seul élément est importé</p>
+    <p>On ne peut importer des éléments que dans un module. En utilisant ce principe tout notre code sera un ensemble de modules.</p>
 </section>
 
 <section>
@@ -105,7 +109,7 @@
         <pre><code data-trim data-noescape class="language-javascript">
             // Fichier main.js    
             import Circle from "./Circle.js" // Valide
-            const circle = new Cercle(1,2,3);
+            const circle = new Circle(1,2,3);
         </code></pre>
         <pre><code data-trim data-noescape class="language-javascript">
             // Fichier main.js
@@ -162,4 +166,14 @@
             console.log(value); // affichera 10
         &lt;/script&gt;
     </code></pre>
+</section>
+
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Les modules - Références</h4>
+	<br>
+	<p>Site officiel : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules</a></p>
+    <br>
+	<p>W3Schools: <a href="https://www.w3schools.com/js/js_modules.asp">https://www.w3schools.com/js/js_modules.asp</a></p>
 </section>
