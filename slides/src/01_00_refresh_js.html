@@ -30,6 +30,7 @@
     </p>
     <aside class="notes">
         En JS, les fonctions peuvent être déclarées en dessous de leur premier appel, cela n'a pas d'importance. On appelle cette propriété le <i>hoisting</i>. 
+        Quand un language possède des fonctions utilisables comme n'importe quel objet, passables en paramètres et retournables par d'autres fonctions, il est dit avoir des "<a href="https://en.wikipedia.org/wiki/First-class_function">first-class functions</a>".
     </aside>
 </section>
 
@@ -38,7 +39,7 @@
 	<h3>JavaScript</h3>
 	<h4>Les fonctions</h4>
     <p>
-        Les fonctions anonymes permettent de passer des fonctions en paramètre d'autres fonctions
+        Cela permet de passer des fonctions en paramètres d'autres fonctions
         <pre><code data-trim data-noescape class="language-javascript">
             const mul2 = function (a){return 2*a;}
             const squared = function (a){return a*a;}
@@ -66,11 +67,13 @@
     <p>
         Les <i>fonctions fléchées</i> (<i>arrow functions</i>) sont une notation encore plus compacte
         <pre><code data-trim data-noescape class="language-javascript">
-            const add = (a, b) => {return a+b;};
+            const add = (a, b) => {
+                return a+b;
+            };
             console.log(add(2,3)); // 5
         </code></pre>
     </p><p>
-        Si la fonction n'est composée que d'un <code>return</code>, on peut omettre les accolades et le <code>return</code> :
+        Si la fonction n'est composée que d'un <code>return</code>, on peut omettre les accolades et le <code>return</code>
         <pre><code data-trim data-noescape class="language-javascript">
             const add = (a, b) => a+b;
             console.log(add(2,3)); // 5
@@ -84,7 +87,7 @@
 	<h3>JavaScript</h3>
 	<h4>Les fonctions</h4>
     <p>
-        Les fonctions fléchées sont très utilisées en JavaScript, elles simplifient beaucoup l'écriture des fonctions.
+        Les fonctions fléchées sont très utilisées en JavaScript, elles simplifient beaucoup la syntaxe.
         <pre><code data-trim data-noescape class="language-javascript">
             function apply(array, func){
                 const result = [];
@@ -121,7 +124,7 @@
 <section>
 	<h3>JavaScript</h3>
 	<h4>Les objets</h4>
-    <p>En JavaScript un objet est un ensemble de propriétés qui possèdent une clé et une valeur</p>
+    <p>En JavaScript, un objet est un ensemble de propriétés qui possèdent une clé et une valeur</p>
     <pre><code data-trim data-noescape class="language-javascript">
         const myObject = {
             cle1 : "val1",
@@ -147,8 +150,13 @@
         myObject.nombre = 9;                // Assigne 9
         myObject['nombre'] = 9;             // Identique à la ligne précédente
     </code></pre>
-    <p>Lire une clé qui n'existe pas retourne la valeur <code>undefined</code></p>
-    <p>Assigner une clé qui n'existe pas crée cette clé</p>
+    <p>Lire une clé qui n'existe pas retourne la valeur <code>undefined</code>.</p>
+    <p>Assigner une clé qui n'existe pas crée cette clé.</p>
+    <aside class="notes">
+        La notation avec un point est simple et ressemble beaucoup à d'autres languages orientés objet.<br>
+        La notation avec des crochet permet d'accéder à un élément selon la valeur d'une variable. Par exemple : <br>
+        <code>const attr = 'nombre';</code><br><code>myObject[attr] = 9;</code>
+    </aside>
 </section>
 
 <section>
@@ -178,8 +186,8 @@
             mult2 : function(x){           // Manière 1 : Assigner une fonction à une propriété
                 return x*2;
             },
-            mult3(x) {                     // Manière 2 : Directement écrire la fonction
-                return x*3;                //             sans le mot-clé function
+            mult3(x) {                     // Manière 2 : Directement écrire la fonction sans
+                return x*3;                //             lui donner explicitement une clé
             }
         };
         console.log(mesFonctions.mult2(3)) // 6
@@ -213,9 +221,9 @@
 <section>
 	<h3>JavaScript</h3>
 	<h4>L'orienté objet et les classes</h4>
-    <p>JavaScript permet de créer des constructeurs. Un constructeur est une fonction qui crée des objets</p>
+    <p>JavaScript permet de créer des constructeurs. Un constructeur est simplement une fonction destinée à créer des objets</p>
     <pre><code data-trim data-noescape class="language-javascript">
-        function Point(x,y){            // Point est un constructeur
+        function Point(x,y){
             this.x = x;
             this.y = y;
             this.display = () => console.log("("+this.x+";"+this.y+")");
@@ -225,8 +233,11 @@
         console.log(p.x);               // 10
         p.display()                     // (10;20)
     </code></pre>
-    <p>Le mot clé <code>this</code> dans le constructeur permet d'assigner une propriété à l'objet qui sera créé</p>
-    <p>Le mot clé <code>new</code> indique de créer un objet en utilisant le constructeur</p>
+    <p>Le mot clé <code>this</code> est une référence vers le contexte courant, c'est-à-dire, dans ce cas, l'objet qui est créé par la fonction.</p>
+    <p>Le mot clé <code>new</code> indique de faire, à partir contexte de la fonction, un nouvel objet. C'est-à-dire, de passer tout ce qui a été assigné à <code>this</code> dans <code>p</code></p>
+    <aside class="notes">
+        Un constructeur est simplement une fonction utilisée pour construire des objets. Elle n'a rien de particulier, à part qu'elle est utilisée dans ce but.
+    </aside>
 </section>
 
 <section>
@@ -234,7 +245,7 @@
 	<h4>L'orienté objet et les classes</h4>
     <p>
         En JavaScript moderne, il existe un syntaxe plus proche des autres languages orientés objet.<br>
-        Nous utiliserons cette syntaxe, plus lisible pour des objets complexes
+        Nous utiliserons cette syntaxe, plus lisible pour des objets complexes.
     </p>
     <pre><code data-trim data-noescape class="language-javascript">
         class Point{
@@ -253,11 +264,84 @@
     </code></pre>
     <p>Les syntaxes de cette slides et la précédente sont équivalentes</p>
      <aside class="notes">
-        On dira "classe" pour parler du type, mais pas d'un objet précis. Ainsi la "classe" Point possède les attributs x, y et la méthode display.
+        On dira "classe" pour parler du type conceptuel, mais pas d'un objet précis. Ainsi dans la "classe" Point possède les attributs x, y et la méthode display.
         On dira "objet" pour parler d'une instance de la classe. Ainsi la constance p est un objet de type Point, c'est-à-dire qui est une instance de la classe Point.
         Par convention, on commencera le nom des classes par une majuscule (Point) et on commencera le nom des objets par une minuscule (p).
+        <br><br>
+        La notation de cette slide est ce qu'on appelle un <i>sucre syntaxique</i>, c'est à dire une nouvelle notation pour quelque chose qu'on pouvait déjà faire avant, mais plus pratique. Elle n'apporte aucune fonction supplémentaire. JavaScript, au moment d'executer ce code, va le traiter exactement comme celui de la slide précédente, et n'importe quelle classe peut être écrite d'une manière ou de l'autre.
     </aside>
 </section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Les <i>getters</i> et les <i>setters</i></h4>
+    <p>Il est commun de vouloir modifier les attributs d'un objet, mais le faire directement peut créer des problèmes</p>
+    <pre><code data-trim data-noescape class="language-javascript">
+        class Disk{
+            constructor(x, y, radius){
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+            }
+            perimeter(){
+                return 2*Math.PI*this.radius;
+            }
+        }
+        
+        const disk = new Disk(4, 5, 8);
+        disk.radius = -3;               // Rien n'empêche d'attribuer des valeurs ne faisant aucun sens
+        console.log(disk.perimeter());  // Dans ce cas l'objet se comportera de manière inattendue
+    </code></pre>
+    <p>On aimerait vérifier que les attributs soient toujours cohérents</p>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Les <i>getters</i> et les <i>setters</i></h4>
+    <p>Pour cela, on peut utiliser les <i>getters</i> et les <i>setters</i></p>
+    <pre><code data-trim data-noescape class="language-javascript">
+        class Disk{
+            constructor(x, y, radius){
+                this.x = x;
+                this.y = y;
+                this._radius = radius;
+            }
+            set radius(r){
+                this._radius = r > 0 ? r : 0; // Ou n'importe quelle autre manière de gérer ce cas
+            }
+            get radius(){
+                return this._radius;
+            }
+        }
+        
+        const disk = new Disk(4, 5, 8);
+        disk.radius = -3;               // Ce cas sera correctement géré
+    </code></pre>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Les <i>getters</i> et les <i>setters</i></h4>
+    <p>Cela permet aussi de simuler des attributs qui n'existent pas</p>
+    <pre><code data-trim data-noescape class="language-javascript">
+        class Disk{
+            /* ... même contenu qu'avant ... */
+            get area(){
+                return Math.PI*this._radius*this._radius;
+            }
+            set area(a){
+                this._radius = Math.sqrt(a/Math.PI);
+            }
+        }
+        
+        const disk = new Disk(4, 5, 8);
+        console.log(disk.area);     // Comme si area était bien un attribut
+        disk.area = 5;              // On peut également l'assigner
+        console.log(disk.radius);   // Et cela aura modifié la valeur de radius
+    </code></pre>
+    <p>L'utilisation des getters et de setters n'est pas du tout obligatoire, et certaines personnes écriraient clairement des méthodes <code>getArea()</code> et <code>setArea()</code></p>
+</section>
+
 
 <section>
 	<h3>JavaScript</h3>
@@ -272,5 +356,10 @@
         Pour les objets : <a href="https://www.w3schools.com/js/js_object_advanced.asp">https://www.w3schools.com/js/js_object_advanced.asp</a>
         <br>
         Pour les classes : <a href="https://www.w3schools.com/js/js_classes.asp">https://www.w3schools.com/js/js_classes.asp</a>
+    </p>
+    <p>
+        Cours de géoinformatique de Bachelor 2025 (GIN 2025) : <br>
+        Page GitHub : <a href="https://github.com/corentin-junod/HEIG-VD-GIN-2025">https://github.com/corentin-junod/HEIG-VD-GIN-2025</a> <br>
+        Slides : <a href="https://github.com/corentin-junod/HEIG-VD-GIN-2025/tree/main/slides/pdfs"">https://github.com/corentin-junod/HEIG-VD-GIN-2025/tree/main/slides/pdfs</a>
     </p>
 </section>

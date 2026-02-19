@@ -19,29 +19,38 @@
 		<script src="reveal_js/plugin/highlight/highlight.js"></script>
 		<script>
 			window.onload = async () => {
-				const content = [
+
+				let content = [
 					'00_00_intro.html',
 					'00_01_refresh_git.html',
 					'01_00_refresh_js.html',
 					'01_01_js_modules.html',
 					'01_02_js_inheritance.html',
-					'01_03_js_promises.html',
-					'01_04_js_scopes.html',
-					'01_05_js_proxy.html',
-					'02_00_code.html',
+					//'01_03_js_promises.html',
+					//'01_04_js_scopes.html',
+					//'01_05_js_proxy.html',
+					//'02_00_code.html',
 				];
+
+				const file = new URLSearchParams(window.location.search).get("file");
+				if(file != undefined){
+					content = [file];
+				}
 
 				for (const file of content) {
 					const html = await (await fetch(file)).text();
 					document.querySelector('.slides').insertAdjacentHTML('beforeend', html);
 				}
 
+				const notes = new URLSearchParams(window.location.search).get("showNotes");
+
 				Reveal.initialize({
-					showNotes: true,
+					showNotes: notes != undefined,
 					hash: true,
 					slideNumber: true,
 					center: false,
-					plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+					plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+					transition: 'fade',
 				});
 			};
 		</script>

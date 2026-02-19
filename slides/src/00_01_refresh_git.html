@@ -9,7 +9,7 @@
 	<h4>Rappel</h4>
 	<br><br>
 	<p>
-		git est un outil de <i>versioning</i>, il permet de résoudre 3 problèmes de gestion de code :
+		Git est un outil de <i>versioning</i>, il permet de résoudre 3 problèmes de gestion de code :
 		<ol>
 			<li>Garder un historique des modifications et de l'évolution du code</li>
 			<li>Sauvegarder le code en lieu sûr</li>
@@ -17,9 +17,9 @@
 		</ol>
 	</p>
 	<br><br>
-	<p>git est un logiciel open source, disponible sur tous les systèmes</p>
+	<p>Git est un logiciel open source, disponible sur tous les systèmes</p>
 	<aside class="notes">
-    	git est un incontournable du développement logiciel. C'est un programme open source utilisé partout dans le monde.
+    	Git est un incontournable du développement logiciel. C'est un programme open source utilisé partout dans le monde.
 		Il existe plusieurs alternatives à git (Perforce, Mercurial, etc) mais git est le plus utilisé, particulièrement dans le monde open-source.
 		Git gère tous les types de données textuelles, pas seulement du code. Des livres, des documentations, des configurations, des notes, etc peuvent très bien être des projets gérés par git. 
 		Par exemple, ces slides sont utilisent git et sont stockées sur GitHub.
@@ -34,14 +34,16 @@
 	<p>
 		La notion fondamentale dans git est le <i>commit</i>. <br> 
 		Il s'agit d'un instantané de votre projet, un "point de sauvegarde" qui enregistre son état. <br>  
-		git permet de revenir, de comparer, de mélanger différents commits. <br>  
-		Ce qui se passe entre les commit n'est pas sauvegardé. <br>
-		git enregistre l'ordre des commit, qui sont liés les uns aux autres.
+		Git permet de revenir, de comparer, de mélanger différents commits. <br>  
+		Ce qui se passe entre les commits n'est pas sauvegardé. <br>
+		Git enregistre l'ordre des commits, qui sont liés les uns aux autres.
 		<img src="assets/git01.svg" width="100%">
 	</p>
 	<aside class="notes">
     	Quand un commit est enregistré, git attribue un identifiant unique au commit et enregistre sa différence par rapport au commit précédent.
-		Tout est placé de manière transparente dans le dossier .git de votre projet. 
+		Tout est placé de manière transparente dans le dossier .git de votre projet, qui est un dossier caché.
+		<br>
+		On ne modifie jamais le contenu du dossier .git manuellement. Tout se fait via des commandes dans le terminal.
 	</aside>
 </section>
 
@@ -65,7 +67,7 @@
 	<br>
 	<img src="assets/git04.svg">
 	<p>
-		Pour synchroniser nos changement avec le dépôt distant, on fera un <i>push</i>. Git va alors mettre à jour le dépôt distant avec nos nouvelles modifications.
+		Pour synchroniser nos changements avec le dépôt distant, on fera un <i>push</i>. Git va alors mettre à jour le dépôt distant avec nos nouvelles modifications.
 		<br><br>
 		Si de nouvelles modifications ont été ajoutées par d'autres personnes dans le dépôt distant, on pourra les récupérer à l'aide de la commande <i>pull</i>.
 	</p>
@@ -77,16 +79,17 @@
 	<h4>Workflow</h4>
 	<p>Les commandes principales</p>
 	<ul>
-		<li><code>git clone</code> récupère le code depuis un dépôt distant</li>
-		<li><code>git add &lt;file&gt;</code> ajoute un fichier au prochain commit</li>
-		<li><code>git commit -m "&lt;message&gt;"</code> créé un commit avec son message associé</li>
-		<li><code>git push</code> envoie vos nouveaux commits dans le dépôt disant</li>
-		<li><code>git pull</code> récupère les nouveaux commits depuis le dépôt disant</li>
+		<li><code>git clone</code> : récupère le code depuis un dépôt distant</li>
+		<li><code>git add &lt;file&gt;</code> : ajoute un fichier au prochain commit</li>
+		<li><code>git commit -m "&lt;message&gt;"</code> : créé un commit avec son message associé</li>
+		<li><code>git push</code> : envoie vos nouveaux commits dans le dépôt disant</li>
+		<li><code>git pull</code> : récupère les nouveaux commits depuis le dépôt disant</li>
 	</ul>
-	<p>La commande <code>git commit -am "&lt;message&gt;"</code> permet de créer un commit avec tous les fichiers modifiés</p>
+	<p>La commande <code>git commit -am "&lt;message&gt;"</code> permet de créer un commit avec tous les fichiers modifiés, elle est équivalente à <code>git add</code> tous vos fichiers, puis faire un commit.</p>
 	<p>La commande <code>git status</code> affiche l'état actuel de votre projet (fichiers modifiés, ajoutés au prochain commit, etc)</p>
 	<aside class="notes">
-    	Il y a beaucoup d'autres commandes, nous ne voyons ici que les commandes les plus basiques.
+    	Il y a beaucoup d'autres commandes, nous ne voyons ici que les commandes les plus basiques.<br>
+		La commande <code>git add</code> permet d'ajouter tous les fichiers qui correspondent à un critère. Par exemple <code>git add *.js</code> ajoutera tous les fichiers qui finissent par ".js". La commande <code>git add .</code> ajoutera tous les fichiers du dossier courant et de ses sous-dossiers au prochain commit.
 	</aside>
 </section>
 
@@ -111,15 +114,29 @@
 <section>
 	<h3>git</h3>
 	<h4>Avec Visual Studio Code</h4>
-	<p>Visual Studio Code détecte automatiquement les changements dans un dépôt local</p>
+	<p>Visual Studio Code détecte automatiquement les changements dans un dépôt local.</p>
 	<p>Ils sont affichés dans le menu &nbsp; <img src="assets/vscode_git.png"> </p>
 	<img src="assets/vscode_git_2.svg" width="800px" style="text-align:center;">
-	<p>Si aucun fichier n'est ajouté au commit, VS Code proposera d'ajouter tous les fichiers modifiés</p>
+	<p>Si aucun fichier n'est ajouté au commit, VS Code proposera d'ajouter tous les fichiers modifiés.</p>
 	<aside class="notes">
 		L'interface de VS Code pour gérer git est très pratique, n'hésitez pas à l'utiliser. Toutefois, il faut connaître les commandes git pour comprendre ce que l'ont fait et régler des situations que VS Code ne permet parfois pas de résoudre.
 		<br>
 		D'autres éditeurs de code fournissent des fonctions similaires.
 	</aside>
+</section>
+
+<section>
+	<h3>git</h3>
+	<h4>Le fichier .gitignore</h4>
+	<p>Pour exclure totalement un fichier, un ensemble de fichiers, ou un répertoire d'un projet git, cela se fait grâce à un fichier spécial : le <i>.gitignore</i></p>
+	<pre><code data-trim data-noescape class="language-txt">
+# contenu de .gitignore
+.env 								# Ignore le fichier ".env"
+*.pyc 							# Ignore tous les fichiers d'extension .pyc
+dossier/a/exclure/ 	# Ignore le dossier dossier/a/exclure/ et tout son contenu
+    </code></pre>
+	<p>Cela est particulièrement utile pour exclure les fichier d'environnement et les fichiers temporaires générés par des compilateurs et autres outils de travail.</p>
+	<p>Les fichiers ignorés seront ignorés par la commande <code>git add</code> et ne seront pas affichés dans <code>git status</code>. Git se comportera comme s'ils n'existaient pas.</p>
 </section>
 
 <section>

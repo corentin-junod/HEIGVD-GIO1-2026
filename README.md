@@ -40,18 +40,7 @@ Le projet devra :
 - Présenter des données issues d'une API externe (par exemple https://docs.geo.admin.ch/ ou similaire)
 - Utiliser git pour la gestion du code et être hébergé sur GitHub
 
-## Planning
+## Organisation
 
-### Lieu : HEIG-VD, G06a
+### Lieu : HEIG-VD, salle G06a
 ### Heure : jeudis 8h30 - 12h
-
-| Date      | Contenu                                                  |
-|-----------|----------------------------------------------------------|
-| 19.2.2026 | Introduction + Rappel de git et GitHub                   |
-| 26.2.2026 | JavaScript : Rappels et notions avancées                 |
-| 5.2.2026  | _Bien coder_ : Erreurs à éviter et patrons de conception |
-| 12.2.2026 | VueJS 3 : Introduction                                   |
-| 19.2.2026 | VueJS 3 : Suite                                          |
-| 26.2.2026 | (cours libre pour projets)                               |
-| 2.4.2026  | (réservé pour l'évaluation)                              |
-

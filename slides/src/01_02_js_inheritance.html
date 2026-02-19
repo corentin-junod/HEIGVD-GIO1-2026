@@ -38,7 +38,7 @@
     <pre><code data-trim data-noescape class="language-javascript">
         class DateTime extends Date {    // Le mot clé "extends" indique l'héritage
             constructor(year, month, day, hours, minutes, seconds){
-                super(year, month, day) // "super" est le constructeur de la classe parente
+                super(year, month, day) // "super" est le constructeur de la classe parent
                 this.hours = hours;
                 this.minutes = minutes;
                 this.seconds = seconds;
@@ -49,7 +49,7 @@
         }
 
         const dateTime = new DateTime(2023, 12, 23, 12, 30, 45);
-        console.log(dateTime.getDate()); // 23.12.2023
+        console.log(dateTime.getDate()); // 23.12.2023  Les fonctions parent sont accessibles
         console.log(dateTime.getTime()); // 12:30:45
     </code></pre>
 </section>
@@ -83,11 +83,11 @@
 <section>
 	<h3>JavaScript</h3>
 	<h4>L'héritage</h4>
-    <p>On peut écraser (<i>override</i>) des méthodes venues des classes parentes.</p>
+    <p>On peut écraser (<i>override</i>) des méthodes venues des classes parent.</p>
     <pre><code data-trim data-noescape class="language-javascript">
         class DateTime extends Date {    // Le mot clé "extends" indique l'héritage
             constructor(year, month, day, hours, minutes, seconds){
-                super(year, month, day) // "super" est le constructeur de la classe parente
+                super(year, month, day) // "super" est le constructeur de la classe parent
                 this.hours = hours;
                 this.minutes = minutes;
                 this.seconds = seconds;
@@ -104,6 +104,30 @@
     </code></pre>
 </section>
 
+<section>
+	<h3>JavaScript</h3>
+	<h4>L'héritage</h4>
+    <p>Pour utiliser spécifiquement une fonction de la classe parent, on utilise aussi <code>super</code></p>
+    <pre><code data-trim data-noescape class="language-javascript">
+        class DateTime extends Date { 
+            constructor(year, month, day, hours, minutes, seconds){ /* ... */ }
+            getTime(){
+                return this.hours+":"+this.minutes+":"+this.seconds;
+            }
+            print(){
+                console.log("Nous sommes le "+this.getDate()+" à "+this.getTime());
+            }
+            printDate(){
+                // Ici on doit utiliser super, car si on avait utilisé this.print(), 
+                // la fonction ci-dessus aurait été appelée (à cause de l'override)
+                super.print();
+            }
+        }
+        const dateTime = new DateTime(2023, 12, 23, 12, 30, 45);
+        dateTime.printDate(); // Nous sommes le 23.12.2023
+    </code></pre>
+</section>
+
 
 <section>
 	<h3>JavaScript</h3>
@@ -111,16 +135,16 @@
     <p>Comment choisir entre héritage et attribut ?</p>
     <p class="fragment fade-in">X sera un attribut de Y si on peut dire <i>"Un Y <b>possède</b> un X"</i></p>
     <p class="fragment fade-in">X sera un parent de Y si on peut dire <i>"Un Y <b>est</b> un X"</i></p>
-    <table>
+    <table class="fragment fade-in">
         <tr>
             <td>
                 <pre><code data-trim data-noescape class="language-javascript">
-                    class Moteur{
+                    class Motor{
                         constructor(){/*...*/}
                         start(){/*...*/}
                         stop(){/*...*/}
                     }
-                    class Voiture extends Moteur {   
+                    class Car extends Motor {   
                         constructor(){/*...*/}
                         break(){/*...*/}
                     }
@@ -128,14 +152,14 @@
             </td>
             <td>
                 <pre><code data-trim data-noescape class="language-javascript">
-                    class Moteur{
+                    class Motor{
                         constructor(){/*...*/}
                         start(){/*...*/}
                         stop(){/*...*/}
                     }
-                    class Voiture {   
+                    class Car {   
                         constructor(){
-                            this.motor = new Moteur();
+                            this.motor = new Motor();
                             /*...*/
                         }
                         break(){/*...*/}
@@ -161,7 +185,7 @@
                         constructor(){/*...*/}
                         setColor(){/*...*/}
                     }
-                    class Circle{   
+                    class Disk{   
                         constructor(){
                             this.shape = new Shape();
                         }
@@ -175,7 +199,7 @@
                         constructor(){/*...*/}
                         setColor(){/*...*/}
                     }
-                    class Circle extends Shape{   
+                    class Disk extends Shape{   
                         constructor(){/*...*/}
                         area(){/*...*/}
                     }
