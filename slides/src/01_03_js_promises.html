@@ -9,13 +9,15 @@
 	<h4>Les promesses</h4>
     <p>Considérons l'exemple suivant, qui décrit à grands traits le chargement d'une carte</p>
     <pre><code data-trim data-noescape class="language-javascript">
-        load_map_tiles();           // Chargement de la carte, prenant quelques secondes
-        complex_computations();  // Calculs complexes, prenant aussi quelques secondes
-        // La carte est prête, on peut interagir avec l'application
+        load_map_tiles();     // Chargement de la carte, prenant quelques secondes
+        process_map_tiles();  // Calculs complexes, prenant aussi quelques secondes
+        
+        /* ... suite du code */
     </code></pre>
     <p>
-        Le JavaScript s'exécutant ligne après ligne, tant que les trois fonctions ne se sont pas exécutées, aucun autre code JavaScript ne s'exécutera.
-        La page sera "gelée", ne réagissant pas tant que la carte ne sera pas prête. Cela est très désagréable pour la personne utilisant la page web.
+        Le JavaScript s'exécutant ligne après ligne, tant qu'une fonction n'a pas fini son exécution, aucun autre code JavaScript ne s'exécutera.
+        <br>
+        Tant que du JavaScript s'exécute, la page est "gelée", et ne réagit pas. Cela est très désagréable pour la personne utilisant la page web.
     </p>
     <p>
         On aimerait une solution où les opérations longues ne figent pas la page, c'est à dire où ces opérations s'exécutent <i>en parallèle</i> du reste du programme.
@@ -28,17 +30,22 @@
 	<h4>Les promesses</h4>
     <p>Les promesses nous permettent de faire cela</p>
     <pre><code data-trim data-noescape class="language-javascript">
-        new Promise(() => {  // Création d'une promesse, retourne instantanément
+        new Promise(() => {  // Création d'une promesse, l'exécution principale continue instantanément
             load_map_tiles();
-            complex_computations();
+            process_map_tiles();
+            console.log("Tuiles chargées");
         });
         // La carte est prête, on peut interagir avec l'application
+        console.log("La carte est interactive");
     </code></pre>
     <p>
         Une <code>Promise</code> est un objet prenant en paramètre une fonction. Cette fonction s'exécutera <i>en parallèle</i> du reste du code. <br>
         La création d'une promesse ne prend presque aucun temps, dans l'exemple ci-dessus on pourra interagir avec la carte immédiatement. <br>
-        Le contenu de la promesse s'exécutera plus tard, à un moment indéterminé.
+        Le contenu de la promesse s'exécutera parallèlement au reste du code.
     </p>
+    <aside class="notes">
+		C'est la machine elle-même qui déterminera l'ordre d'exécution entre le contenu d'une promesse et le reste du code, Cela dépend de beaucoup de paramètres et est déterminé par le processeur de l'ordinateur lui-même. La personne qui écrit le code ne contrôle pas cela. On considère donc que cela est aléatoire, plusieurs exécutions d'un même programme, même dans des conditions similaires, peuvent avoir des ordres d'exécution différents. 
+	</aside>
 </section>
 
 
@@ -51,15 +58,20 @@
         let result;
         new Promise(() => {
             result = complex_computations();
+            console.log("Log2 : ", result);
         });
-        console.log(result);
+        console.log("Log1 : ", result);
         // Reste du code
     </code></pre>
     <p>
-        Ce code affichera instantanément <code>undefined</code>, car au moment du <code>console.log</code>, <code>result</code> n'est pas encore assigné. La promesse n'a pas eu le temps de s'exécuter. <br>
-        <b>Il est très mauvais d'utiliser après une promesse une valeur qui y est calculée, car on ne sait jamais si la promesse s'est exécutée ou non.</b>
-    </p>
-    <p>Pire encore : si on utilise <code>result</code> plus bas dans le code, il pourra y avoir une valeur parfois oui, parfois non, suivant si la promesse s'est déjà exécutée ou non</p>
+        Ce code peut afficher d'abord le Log2 puis le Log1, ou le Log1 puis le Log2, cela est indéfini. <br>
+        Dans ce deuxième cas, <code>result</code> peut ne pas être encore assigné et <code>Log1 : undefined</code> sera affiché. Si <code>complex_computations</code> prend du temps à s'exécuter, c'est ce qui est presque certain de se produire.
+        <br>
+        Conclusion : <b>Quand une valeur est assignée dans une promesse, ne pas l'utiliser en dehors.</b> Sinon cela peut provoquer des comportement inattendus.
+        <aside class="notes">
+            Les problèmes qui surviennent à cause de plusieurs fils d'exécution qui créent des comportements inattendus sont appelés des problèmes de concurrence.<br>
+            Ils sont parmi les plus difficiles à corriger, car leur apparition dépend de l'ordre dans lequel les instructions s'exécutent, ce qui varie à chaque exécution. Le mieux est donc de faire attention à ne pas créer ce genre de bugs...
+        </aside>
 </section>
 
 <section>
@@ -118,7 +130,7 @@
         // Récupère le fichier à l'URL indiquée, dans une promesse
         const requestPromise = fetch(url)
 
-        // Quand la promesse qui récupère la requête est résolue, elle retourne une seconde promesse
+        // Quand la requête est résolue, elle retourne une seconde promesse
         // Cette seconde promesse sert à transformer le texte en objet JSON
         const dataPromise = requestPromise.then(request => request.json())
 
@@ -126,7 +138,6 @@
         dataPromise.then(data => console.log(data))
 
         // Le code se trouvant ici ne sera pas bloqué pas les requêtes au dessus
-        ...
     </code></pre>
 </section>
 
@@ -150,4 +161,48 @@
 
         // Et le reste du code ne sera pas bloqué par toutes ces opérations
     </code></pre>
+    <p>Par contre, ce type de code devient difficile à comprendre. Il existe une syntaxe plus simple</p>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>async / await</h4>
+    <p>L'exemple précédent peut être réécris de manière équivalente</p>
+    <pre style="width:100%"><code data-trim data-noescape class="language-javascript">
+        // Fonction isolant le titre d'un jeu de donnée chargé depuis une adresse externe
+        async function get_data_title(url){
+            const request = await fetch(url);
+            const data = await request.json();
+            return data['title'];
+        }
+
+        const url = "https://data.geo.admin.ch/api/stac/v0.9/collections/ch.swisstopo.swisssurface3d"
+        get_data_title(url).then(title => console.log("Titre : " + title))
+        // Affichera "Titre : swissSURFACE3D Raster, the digital surface model of Switzerland"
+
+        // Et le reste du code ne sera pas bloqué par toutes ces opérations
+    </code></pre>
+    <p>Le mot clé <code>async</code> se place devant une fonction et lui fait retourner une promesse.</p>
+    <p>Le mot clé <code>await</code> indique que le reste du code s'exécutera après la résolution de la promesse qu'il précède</p>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>async / await</h4>
+    <p>Attention aux points suivants avec cette syntaxe :</p>
+    <ul>
+        <li>Une fonction <code>async</code> (dite <i>fonction asynchrone</i>) n'est en réalité qu'une fonction retournant une promesse.</li>
+        <li>Le mot clé <code>async</code> peut s'utiliser devant toute fonction (anonyme ou fléchée également)</li>
+        <li>Le mot clé <code>await</code> n'est qu'une manière simplifiée de placer le reste de la fonction dans le <code>.then</code> de la promesse qu'il précède 
+        <li><code>await</code> ne peut être utilisé que dans des fonctions asynchrones. Sans quoi cela bloquerait toute la page</li>
+    </ul>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Promesses - Références</h4>
+	<br>
+	<p>Site officiel : <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise">https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise</a></p>
+    <br>
+	<p>W3Schools: <a href="https://www.w3schools.com/Js/js_promise.asp">https://www.w3schools.com/Js/js_promise.asp</a></p>
 </section>

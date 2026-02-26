@@ -42,5 +42,5 @@ Le projet devra :
 
 ## Organisation
 
-### Lieu : HEIG-VD, salle G06a
-### Heure : jeudis 8h30 - 12h
+### Lieu : HEIG-VD, salle G06b
+### Heure : jeudis 8h30 - 12h00

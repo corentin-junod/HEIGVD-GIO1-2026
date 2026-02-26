@@ -1,0 +1,98 @@
+<section>
+	<br><br><br>
+	<h1>JavaScript</h1>
+	<h2>Passage par valeur et référence</h2>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Passage par valeur et référence</h4>
+	<p>Qu'affiche ce code ?</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-javascript">
+		function multiply2(x){
+			x = 2*x;
+		}
+		
+		let value = 10;
+		multiply2(value);
+		console.log(value);
+    </code></pre>
+	<p class="fragment fade-in">Ce code affichera 10</p>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Passage par valeur et référence</h4>
+	<p>Qu'affiche ce code ?</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-javascript">
+		function multiply2(x){
+			x[0] = 2*x[0];
+		}
+		
+		let value = [10];
+		multiply2(value);
+		console.log(value[0]);
+    </code></pre>
+	<p class="fragment fade-in">Ce code affichera 20</p>
+</section>
+
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Passage par valeur et référence</h4>
+	<table>
+		<tr>
+			<td>
+				<pre style="width:100%"><code data-trim data-noescape class="language-javascript">
+					function multiply2(x){
+						x = 2*x;
+					}
+					
+					let value = 10;
+					multiply2(value);
+					console.log(value); // Affiche 10
+				</code></pre>
+			</td>
+			<td>
+				<pre style="width:100%"><code data-trim data-noescape class="language-javascript">
+					function multiply2(x){
+						x[0] = 2*x[0];
+					}
+					
+					let value = [10];
+					multiply2(value);
+					console.log(value[0]); // Affiche 20
+				</code></pre>
+			</td>
+		</tr>
+	</table>
+	<p>Dans le code de gauche, la valeur de l'argument est passée <i>par valeur</i>, c'est-à-dire qu'une copie de <code>value</code> est faite. Modifier la copie dans la fonction ne modifie pas la valeur d'origine. </p>
+	<p>Dans le code de droite, la valeur de l'argument est passée <i>par référence</i>, c'est-à-dire que l'argument référence la valeur d'origine et un changement l'affectera également.</p>
+
+	<p class="fragment fade-in">Quand est-ce que le passage est fait <i>par valeur</i> et quand est-il fait <i>par référence</i> ?</p>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Passage par valeur et référence</h4>
+	<p>Le passage est <i>par valeur</i> pour les types dit <i>primitifs</i> :</p>
+	<ul>
+		<li>string (par exemple <code>"Bonjour"</code>)</li>
+		<li>number (par exemple <code>42</code>)</li>
+		<li>boolean (par exemple <code>true</code>)</li>
+		<li>undefined</li>
+		<li>null</li>
+		<li>bigint</li>
+		<li>symbol</li>
+	</ul>
+	<p>Tous les autres types sont toujours passés <i>par référence</i>. Cela inclus donc tableaux, objets, promesses, etc</p>
+</section>
+
+<section>
+	<h3>JavaScript</h3>
+	<h4>Passage par valeur et référence</h4>
+	<br>
+	<p>Site officiel : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Data_structures">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Data_structures</a></p>
+    <br>
+	<p>Geeksforgeeks: <a href="https://www.geeksforgeeks.org/javascript/pass-by-value-and-pass-by-reference-in-javascript/">https://www.geeksforgeeks.org/javascript/pass-by-value-and-pass-by-reference-in-javascript/</a></p>
+</section>

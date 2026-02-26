@@ -44,8 +44,8 @@ li {
     margin-bottom:20px;
 }
 
-table img{
-    vertical-align: top;
+table td, table img{
+    vertical-align: top !important;
 }
 
 .reveal pre{
