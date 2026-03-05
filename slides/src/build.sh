@@ -11,4 +11,4 @@
 (cd ./reveal_js/ ; npm x -c 'decktape -s 1920x1080 reveal "http://127.0.0.1:8080?showNotes=true&file=01_07_js_proxy.html" ../../01_07_js_proxy.pdf')
 
 (cd ./reveal_js/ ; npm x -c 'decktape -s 1920x1080 reveal "http://127.0.0.1:8080?showNotes=true&file=02_00_node_vite.html" ../../02_00_node_vite.pdf')
-(cd ./reveal_js/ ; npm x -c 'decktape -s 1920x1080 reveal "http://127.0.0.1:8080?showNotes=true&file=02_01_openlayers.html" ../../02_00_node_vite.pdf')
+(cd ./reveal_js/ ; npm x -c 'decktape -s 1920x1080 reveal "http://127.0.0.1:8080?showNotes=true&file=02_01_openlayers.html" ../../02_01_openlayers.pdf')
