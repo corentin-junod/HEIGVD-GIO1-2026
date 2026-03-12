@@ -1,0 +1,269 @@
+<section>
+	<br><br><br>
+	<h1>Vue.js</h1>
+	<h2>Utilisation d'un framework</h2>
+	<br>
+	<img style="display: flex;margin:auto;" src="assets/vue.png">
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Pourquoi un framework ?</h4>
+	<br>
+    <div class="fragment fade-in">
+		<p>Le HTML / CSS / JavaScript respecte des standards évoluants peu.</p>
+		<p>Le développement d'applications web a besoin de techniques / logiques modernes et modulables.</p>
+		<p><i>Pensez à l'ex. 6 (sliders) et imaginez créer une application web comme Discord, YouTube, Spotify, un géoportail, etc</i></p>
+	</div>
+	<div class="fragment fade-in">
+		<p>Un framework est un ensemble de fonctions / modules / outils pour faciliter le développement.</p>
+		<p>Cela simplifie les tâches fastidieuses et organise mieux le code.</p>
+		<img src="assets/vue_framework.svg">
+	</div>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Installation</h4>
+	<br>
+    <p>Vue.js peut être utilisé comme librairie simple (fichier JS a inclure dans votre page), ou comme module de NodeJS.</p>
+	<p>Dans les exercices, l'installation se fera avec NodeJS.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<p>L'application Vue.js de base est :</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div id="app"&gt;&lt;/div&gt;
+
+		&lt;script type="module"&gt;
+		import { createApp } from 'vue'
+
+		const app = createApp(/* élément racine de l'application */)
+		app.mount('#app')
+		&lt;/script&gt;
+    </code></pre>
+	<p>L'élément <code>&lt;div&gt;</code> est un élément HTML div standard</p>
+	<p>Le code JavaScript est placé dans une balise script qui est un module, comme d'habitude</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<p>L'application Vue.js de base est :</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div id="app"&gt;&lt;/div&gt;
+
+		&lt;script type="module"&gt;
+		import { createApp } from 'vue'
+
+		const app = createApp(/* élément racine de l'application */)
+		app.mount('#app')
+		&lt;/script&gt;
+    </code></pre>
+	<p>La fonction <code>createApp</code> est la fonction de base de Vue. Elle prend en paramètre l'élément racine de l'application. <br>
+		La fonction <code>mount</code> de l'application crée l'application (il ne se passe rien avant). Elle prend en paramètre l'élément HTML dans lequel créer l'application, ici l'élément avec l'id "app".</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<p>L'application Vue.js de base est :</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div id="app"&gt;&lt;/div&gt;
+
+		&lt;script type="module"&gt;
+		import { createApp } from 'vue'
+		import App from './App.vue'
+
+		const app = createApp(App)
+		app.mount('#app')
+		&lt;/script&gt;
+    </code></pre>
+	<p>Généralement, on déclare l'élément racine dans un fichier séparé, qu'on inclus.</p>
+	<p>Le contenu de la balise <code>script</code> est souvent aussi placé dans un fichier "main.js"</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<p>Les composants de Vue sont généralement placés dans des fichiers .vue </p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		// Fichier App.vue
+
+		&lt;script&gt;&lt;/script&gt;
+
+		&lt;template&gt;Contenu du composant&lt;/template&gt;
+
+		&lt;style scoped&gt;&lt;/style&gt;
+
+    </code></pre>
+	<p>On trouve trois éléments dans la définition d'un composant
+		<ol>
+			<li>Une balise <code>script</code> qui définit la logique du composant et son initialisation</li>
+			<li>Une balise <code>template</code> qui définit le code HTML du composant</li>
+			<li>Une balise <code>style</code> qui définit le style propre au composant</li>
+		</ol>
+	</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;script&gt;
+			export default {
+				data() { // Déclaration de l'état du composant et de ses propriétés
+					return { count: 0 }
+				},
+				methods: { // Méthodes propres au composant
+					increment() { this.count++ }
+				},
+				mounted() { /* script d'initialisation */ }
+			}
+		&lt;/script&gt;
+		&lt;template&gt;Contenu du composant&lt;/template&gt;
+		&lt;style scoped&gt;&lt;/style&gt;
+
+    </code></pre>
+	<p>Dans la balise script, on peut trouver plusieurs définitions dont 
+		<ul>
+			<li><code>data()</code> qui retourne un objet contenant les propriétés du composant</li>
+			<li><code>methods</code> qui retourne un objet contenant les méthodes du composant</li>
+			<li><code>mounted()</code> qui est une fonction exécutée quand le composant est "monté" (ajouté au HTML de la page)</li>
+		</ul>
+	</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+	&lt;script&gt;
+		export default {
+			data() {
+				return { count: 0 }
+			},
+			methods: {
+				increment() { this.count++ }
+			},
+			mounted() { }
+		}
+	&lt;/script&gt;
+	&lt;template&gt;
+		&lt;p&gt;{{count}}&lt;/p&gt;
+		&lt;button v-on:click="increment"&gt;Incrémenter&lt;/button&gt;
+	&lt;/template&gt;
+	&lt;style scoped&gt;&lt;/style&gt;
+    </code></pre>
+	<p>On peut utiliser des propriétés dans le HTML avec la syntaxe <code>{{ prop }}</code></p>
+	<p><code>v-on</code> est ce qu'on appelle une <i>directive</i>, c'est un élément spécifique à Vue qui décrit un comportement particulier, ici une méthode à appeler au clic sur le bouton.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+	&lt;script&gt;
+		export default {
+			data() {
+				return { count: 0 }
+			},
+			methods: {
+				increment() { this.count++ }
+			},
+			mounted() { }
+		}
+	&lt;/script&gt;
+	&lt;template&gt;
+		&lt;p&gt;{{count}}&lt;/p&gt;
+		&lt;button v-on:click="increment"&gt;Incrémenter&lt;/button&gt;
+	&lt;/template&gt;
+	&lt;style scoped&gt;&lt;/style&gt;
+    </code></pre>
+	<p>Au centre de Vue se trouve le principe de <i>réactivité</i>, ici <code>count</code> est une propriété qui, quand elle est modifiée, va automatiquement mettre à jour tous les éléments qui en dépendent.</p>
+	<p>Cliquer sur le bouton va incrémenter <code>count</code> et mettre à jour le contenu de la balise <code>p</code>, automatiquement.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Première application</h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+	&lt;script&gt;
+		export default {
+			data() {
+				return { displayed: true }
+			},
+			methods: {
+				toggleDisplay() { this.displayed=!this.displayed }
+			},
+			mounted() { }
+		}
+	&lt;/script&gt;
+	&lt;template&gt;
+		&lt;p v-if="displayed" &gt;Paragraphe affiché&lt;/p&gt;
+		&lt;button @click="toggleDisplay"&gt;Afficher / Cacher le paragraphe&lt;/button&gt;
+	&lt;/template&gt;
+	&lt;style scoped&gt;&lt;/style&gt;
+    </code></pre>
+	<p>La directive <code>v-if</code> permet d'indiquer si un élément doit être affiché ou non</p>
+	<p>La directive <code>v-on</code> peut être remplacée par <code>@</code>, qui est plus court</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les <i>computed properties</i></h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+	&lt;script&gt;
+		export default {
+			data() {
+				return { age: 5 }
+			},
+			computed: {
+				isAdult() { return this.age >= 18}
+			},
+			methods: { },
+			mounted() { }
+		}
+	&lt;/script&gt;
+	&lt;template&gt;
+		&lt;p&gt;Age : {{age}}, {{isAdult ? 'Majeur' : 'Mineur'}}&lt;/p&gt;
+		&lt;button @click="this.age+=1"&gt;+&lt;/button&gt;
+		&lt;button @click="this.age-=1"&gt;-&lt;/button&gt;
+	&lt;/template&gt;
+	&lt;style scoped&gt;&lt;/style&gt;
+    </code></pre>
+	<p>Dans <code>computed</code> on peut indiquer des propriétés qui dépendent d'autres.</p>
+	<p>Dans des <code>{{ ... }}</code> il est possible de mettre des ternaires (<code>condition</code> ? <code>siVrai</code> : <code>siFaux</code>)</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les <i>computed properties</i></h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+	&lt;script&gt;
+		export default {
+			data() {
+				return { age: 5 }
+			},
+			computed: {
+				isAdult() { return this.age >= 18}
+			},
+			methods: { },
+			mounted() { }
+		}
+	&lt;/script&gt;
+	&lt;template&gt;
+		&lt;p&gt;Age : {{age}}, {{isAdult ? 'Majeur' : 'Mineur'}}&lt;/p&gt;
+		&lt;button @click="this.age+=1"&gt;+&lt;/button&gt;
+		&lt;button @click="this.age-=1"&gt;-&lt;/button&gt;
+	&lt;/template&gt;
+	&lt;style scoped&gt;&lt;/style&gt;
+    </code></pre>
+	<p>La différence entre les <i>computed properties</i> et les méthodes est que la valeur des <i>computed properties</i> est mise en cache. Elle n'est recalculée que si une propriétés dont dépend la <i>computed property</i> change.</p>
+</section>
+
+
+
+

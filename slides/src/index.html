@@ -33,7 +33,8 @@
 					'01_07_js_proxy.html',
 					'02_00_node_vite.html',
 					'02_01_openlayers.html',
-					'03_00_code_part1.html',
+					'03_00_code.html',
+					'04_00_vue.html',
 				];
 
 				const file = new URLSearchParams(window.location.search).get("file");
@@ -46,10 +47,10 @@
 					document.querySelector('.slides').insertAdjacentHTML('beforeend', html);
 				}
 
-				const notes = new URLSearchParams(window.location.search).get("showNotes");
+				const showNotes = new URLSearchParams(window.location.search).get("showNotes");
 
 				Reveal.initialize({
-					showNotes: notes != undefined,
+					showNotes: showNotes != undefined,
 					hash: true,
 					slideNumber: true,
 					center: false,
