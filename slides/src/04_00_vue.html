@@ -4,6 +4,8 @@
 	<h2>Utilisation d'un framework</h2>
 	<br>
 	<img style="display: flex;margin:auto;" src="assets/vue.png">
+	<br><br><br><br>
+	<p>Chapitre essentiellement repris de <a href="https://vuejs.org/guide">https://vuejs.org/guide</a></p>
 </section>
 
 <section>
@@ -261,9 +263,201 @@
 	&lt;/template&gt;
 	&lt;style scoped&gt;&lt;/style&gt;
     </code></pre>
-	<p>La différence entre les <i>computed properties</i> et les méthodes est que la valeur des <i>computed properties</i> est mise en cache. Elle n'est recalculée que si une propriétés dont dépend la <i>computed property</i> change.</p>
+	<p>La différence entre les <i>computed properties</i> et les méthodes est que la valeur des <i>computed properties</i> est mise en cache. Elle n'est recalculée que si une propriété dont dépend la <i>computed property</i> change.</p>
 </section>
 
 
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les directives : v-bind</i></h4>
+	<p>La directive <code>v-bind</code> permet d'assigner une valeur à une propriété HTML</p>
 
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div v-bind:id="dynamicId"&gt;&lt;/div&gt;
+    </code></pre>
+	<p>Elle peut être abrégée par "<code>:</code>"</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div :id="dynamicId"&gt;&lt;/div&gt;
+    </code></pre>
+
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;button :disabled="isButtonDisabled"&gt;Button&lt;/button&gt;
+    </code></pre>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les directives : v-bind</i></h4>
+	<p>Pour les classes, il est possible d'indiquer par un boolean l'activation ou non de la propriété.</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div :class="{ active: isActive }"&gt;&lt;/div&gt;
+    </code></pre>
+	<p>Ici la <code>div</code> n'aura la classe "active" que si <code>isActive</code> est vrai</p>
+	<br>
+	<p>Pour les styles, le même principe s'applique pour en définir des propriétés</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div :style="{ color: activeColor, fontSize: fontSize + 'px' }"&gt;&lt;/div&gt;
+    </code></pre>
+	<p>Des opérations JavaScript peut être faites dans les directives, ici une addition</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les directives : v-if</i></h4>
+	<p>v-if ne monte l'élément que si sa condition est vrai</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;h1 v-if="isAwesome"&gt;Vue is awesome!&lt;/h1&gt;
+    </code></pre>
+	<p>Il est possible également d'avoir des <code>v-if</code>, <code>v-else-if</code> et <code>v-else</code></p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;div v-if="type === 'A'"&gt;A&lt;/div&gt;
+		&lt;div v-else-if="type === 'B'"&gt;B&lt;/div&gt;
+		&lt;div v-else-if="type === 'C'"&gt;C&lt;/div&gt;
+		&lt;div v-else&gt;Not A/B/C&lt;/div&gt;	
+	</code></pre>
+	<br>
+	<p>Si un <code>v-if</code> est faux, l'élément ne sera pas ajouté au code de la page, n'existera pas du point de vue du HTML, et aucun de ses événements ne sera traité</p>
+
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les directives : v-show</i></h4>
+	<p>v-show affiche l'élément si la condition est vrai</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">
+		&lt;h1 v-show="isDisplayed"&gt;Hello!&lt;/h1&gt;
+    </code></pre>
+	<br>
+	<p>Contrairement à <code>v-if</code>, <code>v-show</code> ne fait que cacher l'élément, mais celui-ci continue d'exister dans le code de l'application.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les directives : v-for</i></h4>
+	<p><code>v-for</code> génère du HTML pour chaque élément d'une liste</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-js">		
+		data() {
+			return {
+				items: [{ message: 'Foo' }, { message: 'Bar' }]
+			}
+		}
+    </code></pre>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		&lt;li v-for="item in items"&gt;{{ item.message }}&lt;/li&gt;
+    </code></pre>
+	<p>Cela générera le code suivant</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		&lt;li&gt;Foo&lt;/li&gt;
+		&lt;li&gt;Bar&lt;/li&gt;
+    </code></pre>
+	<p>Cette directive est particulièrement utile quand on souhaite générer du HTML pour un nombre variable d'éléments, non connus à l'avance.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les directives : v-on</i></h4>
+	<p><code>v-on</code> permet d'exécuter du code lors d'événements</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		&lt;button v-on:click="onButtonClicked"&gt;Greet&lt;/button&gt;
+    </code></pre>
+	<p>Cette directive peut-être abrégée par "<code>@</code>"</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		&lt;button @click="onButtonClicked"&gt;Greet&lt;/button&gt;
+    </code></pre>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Template refs</i></h4>
+	<p>Les références de balises dans la section <code>template</code> se font via l'attribut <code>ref</code></p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		&lt;script&gt;
+			export default {
+				mounted() {
+					this.$refs.input.focus() // Utilisation de l'input via les références
+				}
+			}
+		&lt;/script&gt;
+
+		&lt;template&gt;
+			&lt;input ref="input" /&gt;
+		&lt;/template&gt;
+    </code></pre>
+	<p>Cela est utile quand le code JS a besoin d'accéder à une balise et qu'il n'existe pas de directive appropriée.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les composants</i></h4>
+	<p>Les composants sont les constituants d'une application Vue.</p>
+	<img src="assets/vue_components.png">
+	<p>Jusqu'à maintenant nous avons travaillé dans un composant uniquement</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les composants</i></h4>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		&lt;script&gt;
+			import ButtonCounter from './ButtonCounter.vue'
+
+			export default {
+				components: {
+					ButtonCounter
+				}
+			}
+		&lt;/script&gt;
+
+		&lt;template&gt;
+			&lt;h1>Voici des ButtonCounter : &lt;/h1&gt;
+			&lt;ButtonCounter /&gt;
+			&lt;ButtonCounter /&gt;
+		&lt;/template&gt;
+    </code></pre>
+</section>
+
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les composants - Props</i></h4>
+	<p>Il est possible de créer des propriétés dans ses composants :</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		// Dans le composant parent
+		&lt;MonComposant user-message="hello" admin-message="salut" /&gt;
+    </code></pre>
+	<p>Cela est fait de la manière suivante :</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-js">		
+	// Dans MonComposant.vue
+	export default {
+		props: ['userMessage', 'adminMessage'], // Liste de propriétés, sous forme de tableau
+		created() {
+			console.log(this.userMessage) // props are exposed on `this`
+		}
+	}
+    </code></pre>
+	<p>Cela est utile pour passer une valeur d'un composant parent à un composant enfant</p>
+	<p>A noter que la propriété est utilisée dans le template avec le <i>kebab-case</i> <code>user-message</code> mais avec le <i>camelCase</i> <code>userMessage</code> dans le code. Vue fait automatiquement la conversion.</p>
+</section>
+
+<section>
+	<h3>Vue.js</h3>
+	<h4>Les composants - Props</i></h4>
+	<p>Ces propriétés peuvent être utilisées avec les directives</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
+		// Dans le composant parent
+		&lt;MonComposant :user-message="this.messageForUser" :admin-message="this.messageForAdmin" /&gt;
+    </code></pre>
+	<p>Les composants fonctionnent comme des éléments HTML standards</p>
+	<p>Attention, les propriétés passées à un composant sont en lecture seule</p>
+	<pre style="width:100%"><code data-trim data-noescape class="language-js">
+	export default {
+		props: ['userMessage', 'adminMessage'],
+		created() {
+			this.userMessage = 'monMessage' // Interdit !
+		}
+	}
+    </code></pre>
+	<p>Ceci afin d'éviter qu'un composant enfant ne modifie l'état de son parent (effet de bord). Si on doit modifier la valeur d'une propriété, on peut soit créer une propriété interne à l'objet, ou utiliser une <i>computed property</i>.</p>
+
+</section>
 
