@@ -98,7 +98,7 @@
 
 		&lt;template&gt;Contenu du composant&lt;/template&gt;
 
-		&lt;style scoped&gt;&lt;/style&gt;
+		&lt;style&gt;&lt;/style&gt;
 
     </code></pre>
 	<p>On trouve trois éléments dans la définition d'un composant
@@ -126,7 +126,7 @@
 			}
 		&lt;/script&gt;
 		&lt;template&gt;Contenu du composant&lt;/template&gt;
-		&lt;style scoped&gt;&lt;/style&gt;
+		&lt;style&gt;&lt;/style&gt;
 
     </code></pre>
 	<p>Dans la balise script, on peut trouver plusieurs définitions dont 
@@ -157,7 +157,7 @@
 		&lt;p&gt;{{count}}&lt;/p&gt;
 		&lt;button v-on:click="increment"&gt;Incrémenter&lt;/button&gt;
 	&lt;/template&gt;
-	&lt;style scoped&gt;&lt;/style&gt;
+	&lt;style&gt;&lt;/style&gt;
     </code></pre>
 	<p>On peut utiliser des propriétés dans le HTML avec la syntaxe <code>{{ prop }}</code></p>
 	<p><code>v-on</code> est ce qu'on appelle une <i>directive</i>, c'est un élément spécifique à Vue qui décrit un comportement particulier, ici une méthode à appeler au clic sur le bouton.</p>
@@ -182,7 +182,7 @@
 		&lt;p&gt;{{count}}&lt;/p&gt;
 		&lt;button v-on:click="increment"&gt;Incrémenter&lt;/button&gt;
 	&lt;/template&gt;
-	&lt;style scoped&gt;&lt;/style&gt;
+	&lt;style&gt;&lt;/style&gt;
     </code></pre>
 	<p>Au centre de Vue se trouve le principe de <i>réactivité</i>, ici <code>count</code> est une propriété qui, quand elle est modifiée, va automatiquement mettre à jour tous les éléments qui en dépendent.</p>
 	<p>Cliquer sur le bouton va incrémenter <code>count</code> et mettre à jour le contenu de la balise <code>p</code>, automatiquement.</p>
@@ -207,7 +207,7 @@
 		&lt;p v-if="displayed" &gt;Paragraphe affiché&lt;/p&gt;
 		&lt;button @click="toggleDisplay"&gt;Afficher / Cacher le paragraphe&lt;/button&gt;
 	&lt;/template&gt;
-	&lt;style scoped&gt;&lt;/style&gt;
+	&lt;style&gt;&lt;/style&gt;
     </code></pre>
 	<p>La directive <code>v-if</code> permet d'indiquer si un élément doit être affiché ou non</p>
 	<p>La directive <code>v-on</code> peut être remplacée par <code>@</code>, qui est plus court</p>
@@ -234,7 +234,7 @@
 		&lt;button @click="this.age+=1"&gt;+&lt;/button&gt;
 		&lt;button @click="this.age-=1"&gt;-&lt;/button&gt;
 	&lt;/template&gt;
-	&lt;style scoped&gt;&lt;/style&gt;
+	&lt;style&gt;&lt;/style&gt;
     </code></pre>
 	<p>Dans <code>computed</code> on peut indiquer des propriétés qui dépendent d'autres.</p>
 	<p>Dans des <code>{{ ... }}</code> il est possible de mettre des ternaires (<code>condition</code> ? <code>siVrai</code> : <code>siFaux</code>)</p>
@@ -261,7 +261,7 @@
 		&lt;button @click="this.age+=1"&gt;+&lt;/button&gt;
 		&lt;button @click="this.age-=1"&gt;-&lt;/button&gt;
 	&lt;/template&gt;
-	&lt;style scoped&gt;&lt;/style&gt;
+	&lt;style&gt;&lt;/style&gt;
     </code></pre>
 	<p>La différence entre les <i>computed properties</i> et les méthodes est que la valeur des <i>computed properties</i> est mise en cache. Elle n'est recalculée que si une propriété dont dépend la <i>computed property</i> change.</p>
 </section>
@@ -503,7 +503,7 @@
 	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
 		&lt;button @click="$emit('increaseBy', 1)"&gt;Increase by 1&lt;/button&gt;
     </code></pre>
-	<p>Et les argument sont passés à la fonction de l'objet parent</p>
+	<p>Et les arguments sont passés à la fonction de l'objet parent</p>
 	<pre style="width:100%"><code data-trim data-noescape class="language-html">		
 		&lt;MyButton @increase-by="(n) => count += n" /&gt;
     </code></pre>
@@ -512,7 +512,7 @@
 <section>                          
 	<h3>Vue.js</h3>
 	<h4>Conclusion</h4>
-	<p>Quelques info supplémentaires :</p>
+	<p>Quelques informations supplémentaires :</p>
 	<ul>
 		<li>Vue possède deux syntaxes principales, dites <i>Options</i> et <i>Composition</i>. Nous avons vu la syntaxe <i>Options</i>. Vous pourriez lire une syntaxe différente sur internet.</li>
 		<li>Vue a beaucoup évolué ces dernières années. Nous avons vu la syntaxe de <i>Vue 3</i>. Certaines ressources sur internet pourraient utiliser d'anciennes versions.</li>

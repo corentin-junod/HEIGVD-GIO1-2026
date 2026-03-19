@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercice 14</title>
+        <meta charset="UTF-8">
+        <style>
+            html{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            li{
+                margin:10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Exercice 14</h1>
+        <p>L'objectif de cet exercice est des développé une application en Vue.js comportant deux composants.</p>
+        <ul>
+            <li>Le premier composant est une carte OpenLayers, affichant la même couche qu'a l'exercice 10. (couche ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional du serveur https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml?lang=fr) </li>
+            <li>Le deuxième composant est une carte Giro3D, affichant cette même couche</li>
+        </ul>
+        <p>Références : </p>
+        <ul>
+            <li>Pour créer automatiquement un nouveau projet avec Vue.js, utilisez la commande <code>npm create vue@latest</code>. <br>
+                La ligne de commande vous demandera alors 
+                <ul>
+                    <li>un nom pour votre projet, par exemple "ex_14"</li>
+                    <li>si vous souhaitez utiliser TypeScript (sélectionnez non)</li>
+                    <li>si vous souhaitez d'autres fonctions (non, appuyiez simplement sur "enter")</li>
+                    <li>si vous souhaitez d'autres fonctions expérimentales (non, appuyiez simplement sur "enter")</li>
+                    <li>si vous voulez ne pas avoir de code d'exemple dans votre projet (sélectionnez oui)</li>
+                </ul>
+            Puis finalement placez la ligne de commande dans le projet nouvellement créé, et installez Openlayers et Giro3D : <code>npm i ol @giro3d/giro3d</code><br>
+            Vous pouvez lancer le serveur de développement local avec <code>npm run dev</code>
+            
+            </li>
+        </ul>
+    </body>
+</html>
