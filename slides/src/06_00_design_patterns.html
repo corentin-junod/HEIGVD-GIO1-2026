@@ -1,0 +1,531 @@
+<section>
+  <br><br><br>
+  <h1>Design patterns</h1>
+  <h2>Patrons de conception</h2>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Introduction</h4>
+  <br>
+  <p><i>Un patron de conception (souvent appelé design pattern) est un arrangement caractéristique de modules, reconnu comme bonne pratique en réponse à un problème de conception d'un logiciel. Il décrit une solution standard, utilisable dans la conception de différents logiciels</i><br>- Wikipedia</p>
+  <br><br>
+  <p>En d'autres termes : ce sont des manières classiques et courantes de résoudre des problèmes communs en programmation</p>
+  <br>
+  <p>Sont ajoutés à cette listes des notions qui ne sont pas des <i>design patterns</i>, mais qui s'intègrent bien à cette partie du cours.</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Le programme</h4>
+  <br>
+  <ul>
+    <li>Les classes abstraites</li>
+    <li>Les éléments statiques</li>
+    <li>Singleton</li>
+    <li>Builder</li>
+    <li>Adapter</li>
+    <li>Decorator</li>
+    <li>Model - Vue - Controller</li>
+  </ul>
+
+  <p>Il en existe plein d'autres, que nous ne verrons pas dans ce cours.<br> Voir <a href="https://en.wikipedia.org/wiki/Software_design_pattern">https://en.wikipedia.org/wiki/Software_design_pattern</a></p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Les classes abstraites</h4>
+  <br>
+  <p>Une classe abstraite est une classe qui ne peut pas être instanciée. <br> Elle ne sera utilisé que comme parent d'une autre classe.</p>
+  <p>Cela permet de définir des ensemble de méthodes communes à plusieurs classes. </p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Les classes abstraites</h4>
+	<table>
+		<tr>
+			<td>
+				<pre><code data-trim data-noescape class="language-javascript">
+        // Classe abstraite, non instanciable
+        class Storage {
+          constructor() {
+            if (new.target === Storage) {
+              throw new Error("Storage is abstract");
+            }
+          }
+
+          // Méthode abstraite, non implémentée
+          write(key, value) {
+            throw new Error("write is not implemented");
+          }
+
+          load(key) {
+            throw new Error("load is not implemented");
+          }
+
+          exists(key) {
+            const value = this.load(key);
+            return value !== null && value !== undefined;
+          }
+        }
+				</code></pre>
+			</td>
+			<td>
+				<pre class="fragment fade-in"><code data-trim data-noescape class="language-javascript">
+        class LocalStorage extends Storage {
+          constructor() {
+            super();
+          }
+
+          write(key, value) { /* sauvegarde locale */ }
+
+          load(key) { /* récupère la valeur locale */ }
+        }
+
+
+        class DistantStorage extends Storage {
+          constructor() {
+            super();
+          }
+
+          write(key, value) { /* sauvegarde distante */ }
+
+          load(key) { /* récupère la valeur distante */ }
+        }
+				</code></pre>
+			</td>
+		</tr>
+	</table>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Les classes abstraites</h4>
+  <br>
+	<p>A utiliser quand </p>
+  <ul>
+    <li>Plusieurs classes ont un ensemble commun de méthodes groupables</li>
+    <li>Cet ensemble n'est pas suffisant pour créer un objet complet</li>
+  </ul>
+  <br>
+  <p>A ne pas utiliser quand</p>
+  <ul>
+    <li>On pourrait avoir une classe parent non abstraite</li>
+    <li>Grouper les méthodes communes ne forme pas une classe cohérente</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Les éléments statiques</h4>
+  <br>
+  <p>Parfois, il est utile de placer des valeurs ou des fonctions dans des objets, mais qui ne sont pas liés à une instance. <bt> C'est le cas de la classe <code>Math</code> : </bt></p>
+  <pre><code data-trim data-noescape class="language-javascript">
+    const area = Math.PI * 3 * 3;
+    const cosinus = Math.cos(12);
+    const absolute = Math.abs(-45);
+    const euler_number = Math.E;
+  </code></pre>
+  <p>Math est une classe qui n'est jamais instanciée. A aucun moment on ne fait <code>const value = new Math();</code></p>
+  <p>Tous les éléments de <code>Math</code> sont dit <i>statiques</i>. Les éléments statiques sont simplement "rangés" dans une classe.</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Les éléments statiques</h4>
+  <br>
+  <p>Les éléments statiques sont indiqués par le mot clé <code>static</code>.</p>
+  <pre ><code data-trim data-noescape class="language-javascript">
+    class MyMath {
+      static PI = 3.141592653589793;
+      static E = 2.718281828459045;
+
+      static add(a, b) {
+        return a + b;
+      }
+
+      static square(x) {
+        return x * x;
+      }
+    }
+
+    console.log(MyMath.PI); // 3.1415....
+    console.log(MyMath.add(3,5)); // 8
+  </code></pre>
+  <p>
+    On peut également empêcher l'instanciation de la même manière que pour une classe abstraite.<br>
+    Il est possible de combiner éléments statiques et non statiques dans une même classe.
+  </p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Les éléments statiques</h4>
+  <br>
+  <br>
+	<p>A utiliser quand </p>
+  <ul>
+    <li>On a besoin de grouper des fonctions / valeurs </li>
+    <li>On a un attribut ou une méthode d'une classe ne nécessitant pas une instance de la classe<br>
+      <i>Par exemple : constantes, opérations ne nécessitant aucun attribut, etc</i>
+    </li>
+  </ul>
+  <br>
+  <p>A ne pas utiliser quand</p>
+  <ul>
+    <li>Une valeur statique peut changer, il faut alors en faire un attribut</li>
+    <li>Une fonction statique utilise des attributs, il faut alors en faire une méthode</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Singleton</h4>
+  <br>
+  <p>Un <i>Singleton</i> est un objet ne pouvant être instancié qu'une fois.<br> Il est global à toute l'exécution du programme.</p>
+  <p>Créer un deuxième objet peut soit retourner une erreur, soit retourner le même objet global.</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Singleton</h4>
+  <table>
+		<tr>
+			<td>
+				<pre><code data-trim data-noescape class="language-javascript">
+        class ConfigManager {
+          constructor() {
+            if (ConfigManager.instance) {
+              return ConfigManager.instance;
+            }
+
+            this.config = {};
+            ConfigManager.instance = this;
+          }
+
+          set(key, value) {
+            this.config[key] = value;
+          }
+
+          get(key) {
+            return this.config[key];
+          }
+        }
+				</code></pre>
+			</td>
+			<td>
+				<pre><code data-trim data-noescape class="language-javascript">
+        // Dans un module A
+        const configA = new ConfigManager();
+        configA.set("fontSize", 10);
+        </code></pre>
+        <pre><code data-trim data-noescape class="language-javascript">
+        // Dans un module B
+        // ConfigManager est un Singleton, il n'en existe qu'un
+        const configB = new ConfigManager();
+        console.log(configB.get("fontSize")); // 10
+				</code></pre>
+			</td>
+		</tr>
+	</table>
+  <p>Il existe plusieurs solutions d'implémentation. On pourrait aussi utiliser une fonction statique <code>ConfigManager.getInstance()</code> pour obtenir l'objet.</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Singleton</h4>
+  <br>
+  <br>
+	<p>A utiliser quand </p>
+  <ul>
+    <li>On a besoin d'un objet unique et partagé partout dans notre programme</li>
+    <li>Il ne fait aucun sens d'avoir plusieurs objet de ce type</li>
+  </ul>
+  <br>
+  <p>A ne pas utiliser quand</p>
+  <ul>
+    <li>On souhaite créer une valeur globale, facilement accessible. C'est souvent une fausse bonne idée.</li>
+    <li>On pourrait avoir besoin de plusieurs instances de la classe</li>
+  </ul>
+  <p>Attention : Le singleton est un pattern souvent critiqué, dont il est facile d'abuser.<br> On a tendance à l'utiliser pour se simplifier la vie, alors qu'il crée de grands effets de bord !</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Builder</h4>
+  <br>
+  <p>Certains objets peuvent devenir complexes à construire, avec des constructeurs possédant beaucoup de paramètres. <br>
+    Dans d'autres cas, il est difficile de construire un objet en une fois, à un seul endroit dans le code.
+  </p>
+  <p>Le pattern <i>Builder</i> vise à construire un objet final en plusieurs étapes.</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Builder</h4>
+  <pre><code data-trim data-noescape class="language-javascript">
+    // Classe décrivant une requête SQL
+    class Query {
+      constructor(select, from, where, order) {
+        this.select = select;
+        this.from = from;
+        this.where = where;
+        this.order = order;
+      }
+
+      toString() {
+        return `SELECT ${this.select} FROM ${this.from} WHERE ${this.where} ORDER BY ${this.order}`;
+      }
+    }
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Builder</h4>
+  <pre><code data-trim data-noescape class="language-javascript">
+  class QueryBuilder {
+    setSelect(fields) { 
+      this.select = fields; 
+      return this; 
+    }
+    setFrom(table) { 
+      this.from = table; 
+      return this; 
+    }
+    setWhere(cond) { 
+      this.where = cond; 
+      return this; 
+    }
+    setOrderBy(field) { 
+      this.orderBy = field; 
+      return this; 
+    }
+
+    build() {
+      return new Query(this.select, this.from, this.where, this.orderBy);
+    }
+  }
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Builder</h4>
+  <pre><code data-trim data-noescape class="language-javascript">
+  const query = new QueryBuilder()
+    .setSelect("*")
+    .setFrom("users")
+    .setWhere("age > 18")
+    .setOrderBy("name")
+    .build();
+
+  console.log(query.toString());
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Builder</h4>
+  <pre><code data-trim data-noescape class="language-javascript">
+  const qBuilder = new QueryBuilder()
+  /* ... */
+  qBuilder = qBuilder.setSelect("*")
+  /* ... */
+  qBuilder = qBuilder.setFrom("users")
+  /* ... */
+  qBuilder = qBuilder.setWhere("age > 18")
+  /* ... */
+  qBuilder = qBuilder.setOrderBy("name")
+  /* ... */
+  const query = qBuilder.build();
+  console.log(query.toString());
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Builder</h4>
+  <br>
+  <br>
+	<p>A utiliser quand </p>
+  <ul>
+    <li>Un objet doit être construit en plusieurs étapes</li>
+    <li>La construction d'un objet en une ligne devient trop complexe</li>
+  </ul>
+  <br>
+  <p>A ne pas utiliser quand</p>
+  <ul>
+    <li>On pourrait simplifier autrement la construction de l'objet. Le pattern <i>Builder</i> apporte beaucoup de complexité</li>
+    <li>Il y a trop de risques que le <i>Builder</i> se trouve dans des états invalides</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Adapter</h4>
+  <br>
+  <p>Un adapter permet de transformer l'interface d'une classe pour qu'elle "s'adapte" à un besoin donné</p>
+  <pre><code data-trim data-noescape class="language-javascript">
+    class KMLReader {
+      constructor(filePath) {
+        this.filePath = filePath;
+      }
+
+      readKML() { /* Lit le contenu du fichier */ }
+    }
+
+
+    class GeoJSONAdapter {
+      constructor(kmlReader) {
+        this.kmlReader = kmlReader;
+      }
+
+      readJson() { /* Utilise this.kmlReader pour produire du GeoJSON */ }
+    }
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Adapter</h4>
+  <br>
+  <p>Un adapter permet de transformer l'interface d'une classe pour qu'elle "s'adapte" à un besoin donné</p>
+  <pre><code data-trim data-noescape class="language-javascript">
+    const kmlReader = new KMLReader("map.kml");
+    const geojsonAdapter = new GeoJSONAdapter(kmlReader);
+    const geojson = geojsonAdapter.readJson();
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Adapter</h4>
+  <br>
+  <br>
+	<p>A utiliser quand </p>
+  <ul>
+    <li>Une classe de base doit être modifiée, mais il n'est pas possible de le faire (par exemple, issue d'une librairie)</li>
+    <li>L'héritage n'est pas une bonne solution</li>
+  </ul>
+  <br>
+  <p>A ne pas utiliser quand</p>
+  <ul>
+    <li>Modifier la classe de base est possible / acceptable</li>
+    <li>L'héritage pourrait être utilisé à la place</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Decorator</h4>
+  <p>Un <i>Decorator</i> prend le résultat d'une classe et vient y ajouter quelque chose de nouveau</p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Decorator</h4>
+  <pre><code data-trim data-noescape class="language-javascript">
+  class Text {
+    constructor(content) { this.content = content; }
+    render() { return this.content; }
+  }
+
+  class Bold {
+    constructor(text) { this.text = text; }
+    render() { return `&lt;b&gt;${this.text.render()}&lt;/b&gt;`; }
+  }
+
+  class Italic {
+    constructor(text) { this.text = text; }
+    render() { return `&lt;i&gt;${this.text.render()}&lt;/i&gt;`; }
+  }
+
+  class Underline {
+    constructor(text) { this.text = text; }
+    render() { return `&lt;u&gt;${this.text.render()}&lt;/u&gt;`; }
+  }
+
+  const text = new Text("Hello world");
+  const formatted = new Underline( new Bold( new Italic(text) ) );
+  console.log(formatted.render());
+  </code></pre>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Decorator</h4>
+  <br>
+  <br>
+	<p>A utiliser quand </p>
+  <ul>
+    <li>On veut ajouter une ou plusieurs "surcouches" à un objet donné</li>
+    <li>Modifier la classe de base est impossible ou peu pratique</li>
+  </ul>
+  <br>
+  <p>A ne pas utiliser quand</p>
+  <ul>
+    <li>On veut simplement ajouter une méthode à un objet</li>
+    <li>Le <i>Decorator</i> ajoute de nouvelles fonction. Il faut alors utiliser l'héritage, ou un autre pattern.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Model - Vue - Controller (MVC)</h4>
+  <br>
+  <p><i>Tiré de Wikipédia :</i></p>
+  <p>
+    Modèle-vue-contrôleur ou MVC est un motif d'architecture logicielle destiné aux interfaces graphiques, lancé en 1978 et très populaire pour les applications web. Le motif est composé de trois types de modules ayant trois responsabilités différentes : les modèles, les vues et les contrôleurs.
+    <br>
+    <ul>
+      <li>Un modèle (Model) contient les données à afficher</li>
+      <li>Une vue (View) contient la présentation de l'interface graphique</li>
+      <li>Un contrôleur (Controller) contient la logique concernant les actions effectuées par l'utilisateur</li>
+    </ul>
+  </p>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Model - Vue - Controller (MVC)</h4>
+  <br>
+  <img src="assets/MVC.png">
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>Model - Vue - Controller (MVC)</h4>
+  <br>
+  <ul>
+    <li>Le MVC peut être implémenté de nombreuses manières</li>
+    <li>Il convient particulièrement bien aux applications web, avec frontend et backend</li>
+    <li>De nombreux frameworks utilisent les principes du MVC : Ruby on Rails, Django, etc</li>
+  </ul>
+</section>
+
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>L'over-engineering</h4>
+  <br>
+  <p>Quand faut-il utiliser des patrons de conception ? <br> Comment les utiliser efficacement ?</p>
+  <br>
+</section>
+
+<section>
+  <h3>Patrons de conception</h3>
+  <h4>L'over-engineering</h4>
+  <br>
+  <p>Quand faut-il utiliser des patrons de conception ? <br> Comment les utiliser efficacement ?</p>
+  <br>
+  <p>La réponse est simple : K.I.S.S. <br> Autrement dit : seulement si cela rend le code plus clair et facile à comprendre.</p>
+  <br>
+  <p>Une erreur classique est la sur-utilisation de patterns : ce n'est pas parce qu'ils existent qu'il faut les utiliser. Ce ne sont que des outils pour atteindre un code de qualité, par des garanties !</p>
+  <br><br>
+
+  <p>Voir par exemple le repo satirique <a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition">https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition</a><br>
+  Ce programme effectue un calcul très simple, mais noyé dans un code chaotique.
+  </p>
+</section>
